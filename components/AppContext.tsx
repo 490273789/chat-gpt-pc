@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import {
   Dispatch,
   ReactNode,
@@ -7,15 +7,14 @@ import {
   useContext,
   useMemo,
   useState,
+  useRef,
+  useReducer,
 } from "react";
-
-type State = {
-  displayNavigation: boolean;
-};
+import { Action, initState, reducer, State } from "@/reducers/AppReducer";
 
 type AppContextProps = {
   state: State;
-  setState: Dispatch<SetStateAction<State>>;
+  dispatch: Dispatch<Action>;
 };
 
 const AppContext = createContext<AppContextProps>(null!);
@@ -28,9 +27,10 @@ export default function AppContextProvider({
   children: ReactNode;
 }) {
   // 存储全局状态
-  const [state, setState] = useState({ displayNavigation: true });
+  const [state, dispatch] = useReducer(reducer, initState);
   // 防止每次次组件渲染，子组件也跟着渲染
-  const contextValue = useMemo(() => ({ state, setState }), [state, setState]);
+  const contextValue = useMemo(() => ({ state, dispatch }), [state, dispatch]);
+
   return (
     <AppContext.Provider value={contextValue}>{children}</AppContext.Provider>
   );

@@ -34,3 +34,11 @@ export function groupByDate(chatList: Chat[]) {
       list2[list2.length - 1].updateTime - list1[list1.length - 1].updateTime,
   );
 }
+
+export function sleep(time: number) {
+  return new Promise((resolve) =>
+    setTimeout(() => {
+      resolve("time is up");
+    }, time),
+  );
+}

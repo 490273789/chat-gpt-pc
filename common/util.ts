@@ -1,4 +1,7 @@
 import { Chat } from "@/types/chat";
+import clsx from "clsx";
+import type { ClassValue } from "clsx";
+import { twMerge } from "tailwind-merge";
 
 export function groupByDate(chatList: Chat[]) {
   const groupMap = new Map<string, Chat[]>();
@@ -42,3 +45,9 @@ export function sleep(time: number) {
     }, time),
   );
 }
+
+/** 处理tailwind类名工具
+ * twMerge 类名添加先后顺序优先级 - 后面覆盖前面
+ * clsx - 通过对象的形式优化条件语句
+ */
+export const cn = (...inputs: ClassValue[]) => twMerge(clsx(inputs));

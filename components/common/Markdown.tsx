@@ -8,11 +8,10 @@ function Markdown({ children, className = "", ...props }: Options) {
   return (
     <ReactMarkdown
       components={{
-        code({ node, inline, className, children, ...props }) {
+        code({ node, className, children, ...props }) {
           const match = /language-(\w+)/.exec(className || "");
-          return !inline ? (
+          return match ? (
             <SyntaxHighlighter
-              {...props}
               style={a11yDark}
               language={match?.[1] ?? ""}
               PreTag="div"

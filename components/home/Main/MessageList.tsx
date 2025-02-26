@@ -4,7 +4,7 @@ import { useAppContext } from "@/components/AppContext";
 
 export default function MessageList() {
   const {
-    state: { messageList },
+    state: { messageList, streamingId },
   } = useAppContext();
   return (
     <div className="w-full pt-10 pb-48 dark:text-gray-300">
@@ -25,7 +25,9 @@ export default function MessageList() {
                   {isUser ? "🙂" : <SiOpenai />}
                 </div>
                 <div className="flex-1">
-                  <Markdown>{message.content}</Markdown>
+                  <Markdown>{`${message.content}${
+                    message.id === streamingId ? "▍" : ""
+                  }`}</Markdown>
                 </div>
               </div>
             </li>
